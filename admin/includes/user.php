@@ -20,8 +20,20 @@
 
 			global $database;
 
-			$result_set = self::find_this_query("SELECT * FROM users where id = $user_id LimIt 1");
-			$found_user = mysqli_fetch_array($result_set);
+			$the_result_array = self::find_this_query("SELECT * FROM users where id = $user_id LimIt 1");
+
+			// ternary
+			return !empty($the_result_array)? array_shift($the_result_array): false;
+
+			// if (!empty($the_result_array)){
+			// 	$first_item = array_shift($the_result_array);
+
+			// 	return $first_item;
+			// }else{
+			// 	return false;
+			// }
+
+			
 
 			return $found_user;
 		}
@@ -31,8 +43,15 @@
 			global $database;
 
 			$result_set = $database->query($sql);
+			$the_object_array = array();
 
-			return $result_set;
+			while ($row = mysqli_fetch_array($result_set)) {
+
+				$the_object_array[] = self::instantiation($row);
+
+			}
+			return $the_object_array;
+
 		}
 
 		public static function instantiation($the_record){
@@ -48,11 +67,18 @@
 
 			foreach ($the_record as $the_attribute => $value) {
 				if($the_object->has_the_attribute($the_attribute)) {
-					$the_object->the_attribute = $value;
+					$the_object->$the_attribute = $value;
 				}
 			}
             return $the_object;
 
+		}
+
+		private function has_the_attribute($the_attribute){
+
+			$obect_properties = get_object_vars($this);
+
+			return array_key_exists($the_attribute, $obect_properties);
 		}
 	}
  ?>

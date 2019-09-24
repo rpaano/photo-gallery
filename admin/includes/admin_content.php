@@ -23,7 +23,7 @@
 
                 //find user by id
 
-                $found_user = User::find_user_by_id(4);
+                //$found_user = User::find_user_by_id(4);
 
                 // $user = new User();
 
@@ -35,9 +35,22 @@
 
                 //echo User::$id;
 
-                $user = User::instantiation($found_user);
+                // $user = User::instantiation($found_user);
 
-                echo $user->username;
+                // echo $user->user;
+
+                // $users = User::find_all_users();
+
+                // foreach ($users as $user) {
+                //     echo $user->username . "<br>";
+                // }
+
+                $found_user = User::find_user_by_id(4);
+
+                echo $found_user->username;
+
+                
+
 
              ?>
 
