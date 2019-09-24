@@ -1,6 +1,15 @@
 <?php ob_start(); ?>
 <?php require_once("init.php"); ?>
 
+<?php 
+    
+    if (!$seesion->is_signed_in()) {
+        
+        header("Location: ../");
+    }
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
